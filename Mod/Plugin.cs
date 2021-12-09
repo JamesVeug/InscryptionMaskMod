@@ -27,11 +27,11 @@ namespace MaskMod
             PluginDirectory = this.Info.Location.Replace("MaskMod.dll", "");
             new Harmony(PluginGuid).PatchAll();
             
-            CustomMask.AddCustomMask("Test", 
+            CustomMask.AddCustomMask(LeshyAnimationController.Mask.Prospector,
+	            "Test", 
 	            "Masks/custommask", 
-	            "Masks/CustomMaskMat.mat", 
-	            "Masks/CustomMask.png", 
-	            LeshyAnimationController.Mask.Prospector);
+	            "Masks/CustomMask.png" 
+	            );
 
             string assetsPath = Application.streamingAssetsPath;
             Logger.LogInfo($"Streaming assets folder {assetsPath}");

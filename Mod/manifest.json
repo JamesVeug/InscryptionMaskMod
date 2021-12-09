@@ -1,0 +1,10 @@
+{
+    "name": "MaskMod",
+    "version_number": "0.1.0",
+    "website_url": "",
+    "description": "Custom masks for the bosses",
+    "dependencies": [
+        "BepInEx-BepInExPack_Inscryption-5.4.1701",
+        "API_dev-API-1.12.0"
+    ]
+}

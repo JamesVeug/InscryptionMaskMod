@@ -7,7 +7,8 @@ namespace MaskMod
     public class CustomMask
     {
         public static List<CustomMask> customMasks = new List<CustomMask>();
-        public static List<CustomMask> randomMaskPool = new List<CustomMask>();
+        public static Dictionary<LeshyAnimationController.Mask, List<CustomMask>> customMaskLookup = new Dictionary<LeshyAnimationController.Mask, List<CustomMask>>();
+        public static Dictionary<LeshyAnimationController.Mask, List<CustomMask>> randomMaskPool = new Dictionary<LeshyAnimationController.Mask, List<CustomMask>>();
         public static List<string> maskNames = new List<string>();
         
         public LeshyAnimationController.Mask Mask;
@@ -35,28 +36,42 @@ namespace MaskMod
                 BundlePrefabName = prefabName,
                 Mask = mask
             };
+            
             customMasks.Add(m);
+            if (!customMaskLookup.TryGetValue(mask, out var lookup))
+            {
+                lookup = new List<CustomMask>();
+                customMaskLookup[mask] = lookup;
+            }
+            lookup.Add(m);
+            
             Plugin.Log.LogInfo("Added CustomMask " + m.MaskName);
             return m;
         }
 
-        public static CustomMask GetRandomMask()
+        public static CustomMask GetRandomMask(LeshyAnimationController.Mask mask)
         {
-            if (randomMaskPool.Count == 0)
+            if (!randomMaskPool.TryGetValue(mask, out var lookup))
             {
-                randomMaskPool.AddRange(customMasks);
-                randomMaskPool.Randomize();
+                lookup = new List<CustomMask>();
+                randomMaskPool[mask] = lookup;
+            }
+            
+            if (lookup.Count == 0)
+            {
+                lookup.AddRange(customMaskLookup[mask]);
+                lookup.Randomize();
             }
 
-            if (randomMaskPool.Count == 0)
+            if (lookup.Count == 0)
             {
                 Plugin.Log.LogWarning("No masks found!");
                 return null;
             }
 
-            int index = randomMaskPool.Count - 1;
-            CustomMask customMask = randomMaskPool[index];
-            randomMaskPool.RemoveAt(index);
+            int index = lookup.Count - 1;
+            CustomMask customMask = lookup[index];
+            lookup.RemoveAt(index);
             return customMask;
         }
     }

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.IO;
 using System.Reflection;
+using DiskCardGame;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -7,6 +9,85 @@ namespace MaskMod
 {
     public static class Utils
     {
+	    public static GameObject InstantiateMask(LeshyAnimationController.Mask mask, Transform parent)
+	    {
+		    if (InstantiateCustomPrefab(mask, parent, out GameObject customInstance))
+		    {
+			    return customInstance;
+		    }
+
+		    if (InstantiateVanillaPrefab(mask, parent, out GameObject vanillaInstance))
+		    {
+			    return vanillaInstance;
+		    }
+
+		    Debug.LogError("Could not instantiate mask!. Nothing has this! " + mask);
+		    return null;
+	    }
+
+	    private static bool InstantiateVanillaPrefab(LeshyAnimationController.Mask mask, Transform parent, out GameObject clone)
+	    {
+		    GameObject original = ResourceBank.Get<GameObject>("Prefabs/Opponents/Leshy/Masks/Mask" + mask.ToString());
+		    if (original == null)
+		    {
+			    clone = null;
+			    return false;
+		    }
+		    
+		    clone = GameObject.Instantiate(original, parent);
+		    return true;
+	    }
+
+	    private static bool InstantiateCustomPrefab(LeshyAnimationController.Mask mask, Transform parent, out GameObject clone)
+	    {
+		    CustomMask customMask = CustomMask.GetRandomMask(mask);
+            if (customMask == null)
+            {
+                // Show original mask because we didn't load any
+                clone = null;
+                return false;
+            }
+            
+            var myLoadedAssetBundle = AssetBundle.LoadFromFile(customMask.BundlePath);
+            if (myLoadedAssetBundle == null)
+            {
+                Debug.LogError("Failed to load AssetBundle! " + customMask.BundlePath);
+                clone = null;
+                return false;
+            }
+            
+            GameObject prefab = myLoadedAssetBundle.LoadAsset<GameObject>(customMask.BundlePrefabName);
+            if (prefab == null)
+            {
+	            Debug.LogError($"Failed to load prefab from asset bundle! {customMask.BundlePath} {customMask.MaskName}");
+	            clone = null;
+	            return false;
+            }
+            
+            clone = GameObject.Instantiate(prefab, parent);
+            myLoadedAssetBundle.Unload(false);
+
+            if (!string.IsNullOrEmpty(customMask.TextureOverridePath))
+            {
+                if (File.Exists(customMask.TextureOverridePath))
+                {
+                    byte[] imgBytes = File.ReadAllBytes(customMask.TextureOverridePath);
+                    Texture2D texture = new Texture2D(2,2);
+                    texture.LoadImage(imgBytes);
+                    MeshRenderer renderer = clone.GetComponentInChildren<MeshRenderer>();
+                    Material[] materials = renderer.materials;
+                    materials[0].mainTexture = texture;
+                    renderer.materials = materials;
+                }
+                else
+                {
+                    Plugin.Log.LogError($"Mask OverrideTexture for {customMask.MaskName} does not exist: {customMask.TextureOverridePath}");
+                }
+            }
+            
+            return true;
+	    }
+	    
         /// <summary>
         /// Sets a _private_ Property Value from a given Object. Uses Reflection.
         /// Throws a ArgumentOutOfRangeException if the Property is not found.

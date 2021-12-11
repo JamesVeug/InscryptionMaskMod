@@ -16,7 +16,7 @@ namespace MaskMod.Patches
         /// <param name="justHead"></param>
         public static bool Prefix(LeshyAnimationController __instance, LeshyAnimationController.Mask mask, bool justHead = false)
         {
-            CustomMask customMask = CustomMask.GetRandomMask();
+            CustomMask customMask = CustomMask.GetRandomMask(mask);
             if (customMask == null)
             {
                 // Show original mask because we didn't load any
@@ -31,36 +31,8 @@ namespace MaskMod.Patches
                     Object.Destroy(__instance.currentHeldMask);
                 }
             }
-            
-            var myLoadedAssetBundle = AssetBundle.LoadFromFile(customMask.BundlePath);
-            if (myLoadedAssetBundle == null)
-            {
-                Debug.LogError("Failed to load AssetBundle! " + customMask.BundlePath);
-                return true;
-            }
-            
-            GameObject prefab = myLoadedAssetBundle.LoadAsset<GameObject>(customMask.BundlePrefabName);
-            GameObject clone = GameObject.Instantiate(prefab, __instance.maskParent);
-            myLoadedAssetBundle.Unload(false);
 
-            if (!string.IsNullOrEmpty(customMask.TextureOverridePath))
-            {
-                if (File.Exists(customMask.TextureOverridePath))
-                {
-                    byte[] imgBytes = File.ReadAllBytes(customMask.TextureOverridePath);
-                    Texture2D texture = new Texture2D(2,2);
-                    texture.LoadImage(imgBytes);
-                    MeshRenderer renderer = clone.GetComponentInChildren<MeshRenderer>();
-                    Material[] materials = renderer.materials;
-                    materials[0].mainTexture = texture;
-                    renderer.materials = materials;
-                }
-                else
-                {
-                    Plugin.Log.LogError($"Mask OverrideTexture for {customMask.MaskName} does not exist: {customMask.TextureOverridePath}");
-                }
-            }
-            
+            GameObject clone = Utils.InstantiateMask(mask, __instance.maskParent);
             __instance.SetPrivatePropertyValue("CurrentMask", clone);
             
             if (!justHead)

@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 2724979015
+CRC: 568672343
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 8cbb7e2eb8768c824f37a29a22136747
+    Hash: 709eedcd41fede13e288ddb0e954fe39
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 1fe3abd029edb3522ae5dbbc711d0a74
+    Hash: 07353491aca6e6a29636b555171f2e48
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -25,11 +25,12 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 48
   Script: {instanceID: 0}
-- Class: 213
-  Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/CustomMask/pignose.png
-- Assets/CustomMask/PigNose.mat
-- Assets/CustomMask/Sphere.prefab
+- Assets/CustomMask/CustomMask_Normal.png
+- Assets/CustomMask/model.obj
+- Assets/CustomMask/CustomMask_Emission.png
+- Assets/CustomMask/CustomMask_MetallicSmoothness.png
+- Assets/CustomMask/CustomMask.mat
+- Assets/CustomMask/CustomMask.prefab
 Dependencies: []

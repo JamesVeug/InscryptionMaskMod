@@ -25,17 +25,17 @@ namespace MaskMod
             new Harmony(PluginGuid).PatchAll();
             
             CustomMask.AddCustomMask(LeshyAnimationController.Mask.Prospector,
-	            "CustomMask", 
+	            "Scream", 
 	            "Masks/custommask", 
 	            "CustomMask",
 	            "Masks/screammask.png"
 	            );
             
-            /*CustomMask.AddCustomMask(LeshyAnimationController.Mask.Prospector,
-	            "Sphere", 
+            CustomMask.AddCustomMask(LeshyAnimationController.Mask.Prospector,
+	            "Pig Nose", 
 	            "Masks/sphere", 
 	            "Sphere"
-            );*/
+            );
 
             // Backgrounds
             Logger.LogInfo($"Loaded {PluginName}!");

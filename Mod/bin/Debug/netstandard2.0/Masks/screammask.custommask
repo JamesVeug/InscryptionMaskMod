@@ -1,0 +1,7 @@
+{
+  "MaskType": "Prospector",
+  "MaskName": "Scream",
+  "TextureOverridePath": "Masks/screammask.png",
+  "BundlePath": "Masks/custommask",
+  "PrefabName": "CustomMask"
+}

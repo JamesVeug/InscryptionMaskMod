@@ -1,0 +1,7 @@
+{
+  "MaskType": "Prospector",
+  "MaskName": "Cat Face Mask",
+  "TextureOverridePath": "Masks/catmask.png",
+  "BundlePath": "Masks/custommask",
+  "PrefabName": "CustomMask"
+}

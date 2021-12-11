@@ -32,22 +32,22 @@ namespace MaskMod.Patches
                 }
             }
             
-            var myLoadedAssetBundle = AssetBundle.LoadFromFile(customMask.ModelPath);
+            var myLoadedAssetBundle = AssetBundle.LoadFromFile(customMask.BundlePath);
             if (myLoadedAssetBundle == null)
             {
-                Debug.LogError("Failed to load AssetBundle! " + customMask.ModelPath);
+                Debug.LogError("Failed to load AssetBundle! " + customMask.BundlePath);
                 return true;
             }
             
-            GameObject prefab = myLoadedAssetBundle.LoadAsset<GameObject>(customMask.PrefabName);
+            GameObject prefab = myLoadedAssetBundle.LoadAsset<GameObject>(customMask.BundlePrefabName);
             GameObject clone = GameObject.Instantiate(prefab, __instance.maskParent);
             myLoadedAssetBundle.Unload(false);
 
-            if (!string.IsNullOrEmpty(customMask.TexturePath))
+            if (!string.IsNullOrEmpty(customMask.TextureOverridePath))
             {
-                if (File.Exists(customMask.TexturePath))
+                if (File.Exists(customMask.TextureOverridePath))
                 {
-                    byte[] imgBytes = File.ReadAllBytes(customMask.TexturePath);
+                    byte[] imgBytes = File.ReadAllBytes(customMask.TextureOverridePath);
                     Texture2D texture = new Texture2D(2,2);
                     texture.LoadImage(imgBytes);
                     MeshRenderer renderer = clone.GetComponentInChildren<MeshRenderer>();
@@ -57,7 +57,7 @@ namespace MaskMod.Patches
                 }
                 else
                 {
-                    Plugin.Log.LogError($"Mask OverrideTexture for {customMask.MaskName} does not exist: {customMask.TexturePath}");
+                    Plugin.Log.LogError($"Mask OverrideTexture for {customMask.MaskName} does not exist: {customMask.TextureOverridePath}");
                 }
             }
             

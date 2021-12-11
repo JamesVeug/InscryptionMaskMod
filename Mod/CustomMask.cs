@@ -12,18 +12,20 @@ namespace MaskMod
         public string MaskName;
         public string ModelPath;
         public string TexturePath;
+        public string PrefabName;
 
-        public static CustomMask AddCustomMask(LeshyAnimationController.Mask mask, string name, string modelPath, string textureOverride=null)
+        public static CustomMask AddCustomMask(LeshyAnimationController.Mask mask, string name, string modelPath, string prefabName, string textureOverride=null)
         {
             CustomMask m = new CustomMask()
             {
                 MaskName = name,
                 ModelPath = Path.Combine(Plugin.PluginDirectory, modelPath),
-                TexturePath = Path.Combine(Plugin.PluginDirectory, textureOverride),
+                TexturePath = textureOverride != null ? Path.Combine(Plugin.PluginDirectory, textureOverride) : null,
+                PrefabName = prefabName,
                 Mask = mask
             };
             customMasks.Add(m);
-            Plugin.Log.LogInfo("Added CustomMask " + m.MaskName);
+            Plugin.Log.LogInfo("Added CustomMask " + m.MaskName + " " + m.PrefabName);
             Plugin.Log.LogInfo("\tModel path: " + m.ModelPath);
             Plugin.Log.LogInfo("\tTexture path: " + m.TexturePath);
             return m;

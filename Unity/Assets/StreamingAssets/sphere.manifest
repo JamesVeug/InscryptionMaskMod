@@ -1,0 +1,42 @@
+ManifestFileVersion: 0
+CRC: 1720436426
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 03631d4de1996c5bf77968f9e842f6db
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 5b21196f784883026488c2a95dcc3b7e
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 64
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 8233d90336aea43098adf6dbabd606a2, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/CustomMask/CustomMask_Normal.png
+- Assets/CustomMask/Sphere.prefab
+- Assets/CustomMask/Plane.prefab
+- Assets/CustomMask/CustomMask_MetallicSmoothness.png
+- Assets/CustomMask/New Material.mat
+- Assets/CustomMask/CustomMask.prefab
+Dependencies: []

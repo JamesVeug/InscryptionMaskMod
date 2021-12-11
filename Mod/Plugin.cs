@@ -1,9 +1,6 @@
-using System.IO;
-using System.Xml.XPath;
 using BepInEx;
 using BepInEx.Logging;
 using DiskCardGame;
-using Dummiesman;
 using HarmonyLib;
 using UnityEngine;
 
@@ -29,18 +26,18 @@ namespace MaskMod
             
             CustomMask.AddCustomMask(LeshyAnimationController.Mask.Prospector,
 	            "Test", 
-	            "Masks/custommask", 
-	            "Masks/CustomMask.png" 
+	            "Masks/sphere", 
+	            "CustomMask"
 	            );
 
-            string assetsPath = Application.streamingAssetsPath;
+           /* string assetsPath = Application.streamingAssetsPath;
             Logger.LogInfo($"Streaming assets folder {assetsPath}");
             if (!Directory.Exists(assetsPath))
             {
 	            Directory.CreateDirectory(assetsPath);
             }
             
-            string maskPath = Path.Combine(Plugin.PluginDirectory, "Masks/model.obj");
+            string maskPath = Path.Combine(Plugin.PluginDirectory, "Masks/model.obj");*/
             /*string fileName = Path.GetFileName(maskPath);
             string streamingFilePath = Path.Combine(assetsPath, fileName);
             string persistentFilePath = Path.Combine(Application.persistentDataPath, fileName);
@@ -61,7 +58,7 @@ namespace MaskMod
             Mesh persistentMesh = Resources.Load<Mesh>(persistentFilePath);
             Logger.LogInfo($"Persistent Mesh Loaded: {persistentMesh}!");*/
             
-            string prefabPath = Path.Combine(Plugin.PluginDirectory, "Masks/model.obj");
+            /*string prefabPath = Path.Combine(Plugin.PluginDirectory, "Masks/model.obj");
             Logger.LogInfo($"Loading prefab from: {prefabPath}!");
             GameObject loadedObject = new OBJLoader().Load(prefabPath);
             Logger.LogInfo($"Loaded prefab: {loadedObject}!");
@@ -81,24 +78,64 @@ namespace MaskMod
 	            Logger.LogInfo($"Prefab: " + prefab);
 	            Print(prefab);
 	            myLoadedAssetBundle.Unload(false);
-            }
+            }*/
 
 
             // Backgrounds
             Logger.LogInfo($"Loaded {PluginName}!");
         }
 
-        private void Print(GameObject go, string prefix = "\t")
+        public static void Print(GameObject go, string prefix = "\t")
         {
-	        Logger.LogInfo(prefix + $"GameObject: {go}!");
+	        Log.LogInfo(prefix + $"GameObject: {go}!");
+
+	        string hierarchy = go.name;
+	        Transform parent = go.transform.parent;
+	        while (parent != null)
+	        {
+		        hierarchy = parent.name + "->" + hierarchy;
+		        parent = parent.parent;
+	        }
+	        Log.LogInfo(prefix + $"\tHierarchy: {hierarchy}!");
+	        
 	        foreach (Object component in go.GetComponents<Object>())
 	        {
-		        Logger.LogInfo(prefix + $"Component: {component}!");
-		        Logger.LogInfo(prefix + $"\tName: {component.name}!");
-		        Logger.LogInfo(prefix + $"\tType: {component.GetType()}!");
+		        Log.LogInfo(prefix + $"Component: {component}!");
+		        Log.LogInfo(prefix + $"\tName: {component.name}!");
+		        Log.LogInfo(prefix + $"\tType: {component.GetType()}!");
+		        if (component as MeshRenderer)
+		        {
+			        MeshRenderer m = (MeshRenderer)component;
+			        foreach (Material material in m.materials)
+			        {
+				        Plugin.Log.LogInfo(prefix + $"\tMaterial: " + material.name);
+				        if (material.mainTexture != null)
+				        {
+					        Plugin.Log.LogInfo(prefix + $"\t\tTexture: " + material.mainTexture.name);
+				        }
+				        else
+				        {
+					        Plugin.Log.LogInfo(prefix + $"\t\tTexture: null");
+				        }
+
+				        Plugin.Log.LogInfo(prefix + $"\t\tshader: " + material.shader.name);
+			        }
+		        }
+		        else if (component as MeshFilter)
+		        {
+			        MeshFilter mf = (MeshFilter)component;
+			        Plugin.Log.LogInfo(prefix + $"\tName: " + mf.name);
+			        Plugin.Log.LogInfo(prefix + $"\tMesh: " + mf.mesh);
+		        }
+		        else if (component as Transform)
+		        {
+			        Transform t = (Transform)component;
+			        Plugin.Log.LogInfo(prefix + $"\tPosition: " + t.position + " " + t.localPosition);
+			        Plugin.Log.LogInfo(prefix + $"\tLossyScale: " + t.lossyScale + " " + t.localScale);
+		        }
 	        }
 
-	        Logger.LogInfo(prefix + $"Children: {go.transform.childCount}!");
+	        Log.LogInfo(prefix + $"Children: {go.transform.childCount}!");
 	        for (int i = 0; i < go.transform.childCount; i++)
 	        {
 		        Transform child = go.transform.GetChild(i);

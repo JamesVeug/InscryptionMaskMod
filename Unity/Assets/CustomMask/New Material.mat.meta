@@ -1,7 +1,8 @@
 fileFormatVersion: 2
-guid: 5971f53ea3e972e499cd137dfeaa4c74
-PrefabImporter:
+guid: 67f397fdbc0b6b54a94ce55c4939d472
+NativeFormatImporter:
   externalObjects: {}
+  mainObjectFileID: 2100000
   userData: 
   assetBundleName: sphere
   assetBundleVariant: 

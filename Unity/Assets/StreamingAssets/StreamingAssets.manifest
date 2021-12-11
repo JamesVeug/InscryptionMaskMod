@@ -1,7 +1,7 @@
 ManifestFileVersion: 0
-CRC: 1190073208
+CRC: 2898945683
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
-      Name: custommask
+      Name: sphere
       Dependencies: {}

@@ -1,0 +1,7 @@
+{
+  "MaskType": "Angler",
+  "MaskName": "Kissy Face",
+  "TextureOverridePath": "Masks/kiss.png",
+  "BundlePath": "Bundles/custommask",
+  "PrefabName": "CustomMask"
+}

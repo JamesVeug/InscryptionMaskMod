@@ -1,0 +1,7 @@
+{
+  "MaskType": "Angler",
+  "MaskName": "Chef",
+  "TextureOverridePath": "Masks/chef.png",
+  "BundlePath": "Bundles/custommask",
+  "PrefabName": "CustomMask"
+}

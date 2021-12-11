@@ -1,0 +1,7 @@
+{
+  "MaskType": "Angler",
+  "MaskName": "Jason",
+  "TextureOverridePath": "Masks/jason.png",
+  "BundlePath": "Bundles/custommask",
+  "PrefabName": "CustomMask"
+}

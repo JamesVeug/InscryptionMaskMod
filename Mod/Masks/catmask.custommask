@@ -1,7 +1,7 @@
 {
-  "MaskType": "Prospector",
+  "MaskType": "Angler",
   "MaskName": "Cat Face Mask",
   "TextureOverridePath": "Masks/catmask.png",
-  "BundlePath": "Masks/custommask",
+  "BundlePath": "Bundles/custommask",
   "PrefabName": "CustomMask"
 }

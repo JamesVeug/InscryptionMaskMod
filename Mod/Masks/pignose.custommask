@@ -1,0 +1,7 @@
+{
+  "MaskType": "Prospector",
+  "MaskName": "Pig Nose",
+  "TextureOverridePath": "Masks/pignose.png",
+  "BundlePath": "Bundles/sphere",
+  "PrefabName": "CustomMask"
+}

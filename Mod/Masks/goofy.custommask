@@ -1,0 +1,7 @@
+{
+  "MaskType": "Angler",
+  "MaskName": "Goofy",
+  "TextureOverridePath": "Masks/goofy.png",
+  "BundlePath": "Bundles/custommask",
+  "PrefabName": "CustomMask"
+}

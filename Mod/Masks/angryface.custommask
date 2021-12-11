@@ -1,0 +1,7 @@
+{
+  "MaskType": "Angler",
+  "MaskName": "Emoji",
+  "TextureOverridePath": "Masks/angryface.png",
+  "BundlePath": "Bundles/custommask",
+  "PrefabName": "CustomMask"
+}

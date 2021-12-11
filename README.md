@@ -19,9 +19,9 @@ This mod includes support for 2 types of Masks.
 
 For all mask types you can override the texture with your own image like the below:
 
-###Example of putting a new texture on the Flat mask:
+### Example of putting a new texture on the Flat mask:
 
-![alt text](https://github.com/JamesVeug/InscryptionMaskMod/blob/main/mask_scream.png)
+![alt text](https://github.com/JamesVeug/InscryptionMaskMod/blob/main/mask_scream.PNG)
 
 # Notes:
 Masks require an emissive texture in order to be visible. If you don't have this the entire model will be black and not visible when on Leshy. 
